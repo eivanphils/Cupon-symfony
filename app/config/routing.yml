@@ -1,0 +1,27 @@
+usuario:
+    resource: "@UsuarioBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+tienda:
+    resource: "@TiendaBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+ciudad:
+    resource: "@CiudadBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+oferta:
+    resource: "@OfertaBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+
+portada:
+    resource: "@OfertaBundle/Controller/"
+    type: annotation

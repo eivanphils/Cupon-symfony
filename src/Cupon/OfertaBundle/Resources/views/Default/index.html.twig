@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Portada | Cupon</title>
+    <link rel="stylesheet" href="{{ asset('bundles/materialize/css/materialize.min.css') }}">
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+    <script type="text/javascript" src="{{ asset('bundles/materialize/js/materialize.min.js') }}"></script>
+</head>
+<body id="portada">
+    <div class="container">
+        <nav>
+            <div class="nav-wrapper">
+                <h1><a href="{{ path('portada') }}" class="brand-logo left">CUPON</a></h1>
+                <ul id="nav-mobile" class="right hide-on-small-and-down">
+                    <li><a href="{{ path('portada') }}">Oferta del día</a></li>
+                    <li><a href="#">Ofertas recientes</a></li>
+                    <li><a href="#">Mis ofertas</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="row">
+           <div class="col s12 m6">
+
+
+            <section class="descripcion">
+                <h1><a href="#">{{ oferta.nombre }}</a></h1>
+                {{ oferta.descripcion }}
+                <a class="boton" href="#">Comprar</a>
+            </section>
+
+            <section class="galeria">
+                <img alt="Fotografía de la oferta" src="{{ asset('uploads/images/'~oferta.foto) }}">
+                <p class="precio">{{ oferta.precio }} &euro;
+                    <span>{{ oferta.descuento }}</span></p>
+                <p><strong>Condiciones:</strong>{{ oferta.condiciones }}</p>
+            </section>
+            <section class="estado">
+                <div class="tiempo">
+                    <strong>Faltan</strong>: {{ oferta.fechaExpiracion | date() }}
+                </div>
+                <div class="compras">
+                    <strong>Compras</strong>: {{ oferta.compras }}
+                </div>
+                <div class="faltan">
+                    {% set faltan = oferta.umbral - oferta.compras %}
+                    {% if faltan >0 %}
+                        Faltan <strong>{{ faltan }} compras</strong> <br/>
+                        para activar la oferta
+                    {% else %}
+                        <strong>Oferta activada</strong> por superar las
+                        <strong>{{ oferta.umbral }}</strong> compras necesarias
+                    {% endif %}
+                </div>
+            </section>
+            <section class="direccion">
+                <h2>Disfruta de la oferta en</h2>
+                <p>
+                    <a href="#">{{ oferta.tienda.nombre }}</a>
+                    {{ oferta.tienda.direccion }}
+                </p>
+            </section>
+            <section class="tienda">
+                <h2>Sobre la tienda</h2>
+                {{ oferta.tienda.descripcion }}
+            </section>
+           </div>
+        </div>
+
+        <aside>
+            ## FORMULARIO DE LOGIN ##
+            <section id="nosotros">
+                <h2>Sobre nosotros</h2>
+                <p>Lorem ipsum dolor sit amet...</p>
+            </section>
+        </aside>
+        <footer>
+            &copy; {{ 'now' | date('y') }} - Cupon
+            <a href="{{ path('pagina_estatica', {'pagina': 'ayuda'}) }}">Ayuda</a> |
+            <a href="{{ path('pagina_estatica', {'pagina': 'contacto'}) }}">Contacto</a> |
+            <a href="{{ path('pagina_estatica', {'pagina': 'privacidad'}) }}">Privacidad</a> |
+            <a href="{{ path('pagina_estatica', {'pagina': 'nosotros'}) }}">Sobre nosotros</a>
+        </footer>
+    </div>
+</body>
+</html>
