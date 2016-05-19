@@ -14,6 +14,15 @@ class DefaultController extends Controller
      */
     public function indexAction($ciudad = null)
     {
+        if(null == $ciudad)
+        {
+            $ciudad = $this->container->getParameter('cupon.ciudad_por_defecto');
+
+            return new RedirectResponse(
+                $this->generateUrl('portada',array('ciudad' => $ciudad))
+            );
+        }
+
         $em = $this->getDoctrine()->getManager();
         
         $oferta = $em->getRepository('OfertaBundle:Oferta')->findOneBy(
@@ -23,10 +32,16 @@ class DefaultController extends Controller
             )
         );
 
-        $ciudad = $this->container->getParameter('cupon.ciudad_por_defecto');
+        if (!$oferta)
+        {
+            throw $this->createNotFoundException('No se ha encontrado la oferta del dia en el ciudad seleccionada');
 
-        return new RedirectResponse(
-            $this->generateUrl('portada',array('ciudad' => $ciudad))
+        }
+
+        return $this->render('OfertaBundle:Default:index.html.twig',
+            array('oferta' => $oferta)
         );
+
+
     }
 }
