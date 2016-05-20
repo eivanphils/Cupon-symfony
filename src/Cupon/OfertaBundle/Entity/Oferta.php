@@ -10,7 +10,7 @@ use Cupon\OfertaBundle\Util\Util;
 /**
  * Oferta
  *
- * @ORM\Entity(repositoryClass="Cupon\OfertaBundle\Repository\OfertaRepository")
+ * @ORM\Entity(repositoryClass="Cupon\OfertaBundle\Entity\OfertaRepository")
  */
 class Oferta
 {
