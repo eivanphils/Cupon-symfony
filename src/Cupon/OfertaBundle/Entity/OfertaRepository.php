@@ -19,6 +19,6 @@ class OfertaRepository extends EntityRepository
         $consulta->setParameter('ciudad', $ciudad);
         $consulta->setMaxResults(1);
 
-        return $consulta;
+        return $consulta->getSingleResult();
     }
 }

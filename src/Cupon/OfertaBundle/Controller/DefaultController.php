@@ -25,12 +25,7 @@ class DefaultController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         
-        $oferta = $em->getRepository('OfertaBundle:Oferta')->findOneBy(
-            array(
-                'ciudad' => $this->container->getParameter('cupon.ciudad_por_defecto'),
-//                'fechaPublicacion' => new \DateTime('today')
-            )
-        );
+        $oferta = $em->getRepository('OfertaBundle:Oferta')->findOfertaDelDia($ciudad);
 
         if (!$oferta)
         {
