@@ -2,16 +2,16 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}{% endblock %} | Cupon</title>
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         <link rel="stylesheet" href="{{ asset('bundles/materialize/css/materialize.min.css') }}">
         <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
         <script type="text/javascript" src="{{ asset('bundles/materialize/js/materialize.min.js') }}"></script>
     </head>
-    <body id="{% block id %}{% endblock %}">
+
+    <body id="{% block id '' %}">
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
 
         <footer>
             &copy; {{ 'now' | date('y') }} - Cupon
@@ -20,5 +20,7 @@
             <a href="{{ path('pagina_estatica', {'pagina': 'privacidad'}) }}">Privacidad</a> |
             <a href="{{ path('pagina_estatica', {'pagina': 'nosotros'}) }}">Sobre nosotros</a>
         </footer>
+
+        {% block javascripts %}{% endblock %}
     </body>
 </html>
