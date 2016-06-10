@@ -9,6 +9,20 @@
 
 
 {% block login %}
+
+    {{ parent() }}
+
+    <section id="relacionadas">
+        <h2>Ofertas en otras ciudades</h2>
+        <ul>
+            {% for relacionada in relacionadas %}
+                <li>{{ oferta.ciudad.nombre }}:
+                    <a href="{{ path('oferta', {'ciudad': oferta.ciudad.slug, 'slug': oferta.slug}) }}">{{ oferta.nombre }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+
     <aside>
         ## FORMULARIO DE LOGIN ##
         <section id="nosotros">
