@@ -1,14 +1,12 @@
 {% extends '::frontend.html.twig' %}
 
-{% block title %}
-    Cupon, cada dia ofertas increibles en tu ciudad con descuentos de hasta el 90%
-{% endblock %}
-
-{% block id 'portada' %}
+{% block title %}Detalle de {{ oferta.nombre }}{% endblock %}
+{% block id 'oferta' %}
 
 {% block content %}
     {% include 'OfertaBundle:Default/includes:oferta.html.twig' %}
 {% endblock %}
+
 
 {% block login %}
     <aside>
