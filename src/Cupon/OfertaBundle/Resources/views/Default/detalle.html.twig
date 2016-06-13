@@ -17,7 +17,7 @@
         <ul>
             {% for relacionada in relacionadas %}
                 <li>{{ relacionada.ciudad.nombre }}:
-                    <a href="{{ path('oferta', {'ciudad': relacionada.ciudad.slug, 'slug': relacionada.slug}) }}">{{ relacionada.nombre }}</a>
+                    <a href="{{ path('oferta', {'ciudad': relacionada.ciudad.slug, 'slug': relacionada.slug}) }}">{{ relacionada.nombre | truncate(12, true, "...")}}</a>
                 </li>
             {% endfor %}
         </ul>
