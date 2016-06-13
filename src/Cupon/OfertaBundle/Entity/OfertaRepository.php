@@ -53,8 +53,9 @@ class OfertaRepository extends EntityRepository
                   ORDER BY o.nombre';
 
         $consulta = $em->createQuery($dql);
-        $consulta->setMaxResults(5);
         $consulta->setParameter('ciudad', $ciudad);
+        $consulta->setMaxResults(5);
+
 
         return $consulta->getResult();
     }
