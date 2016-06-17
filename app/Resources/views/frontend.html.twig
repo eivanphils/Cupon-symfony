@@ -16,7 +16,7 @@
             <h1><a href="{{ path('portada',{ 'ciudad': ciudadSeleccionada }) }}" class="brand-logo left">CUPON</a></h1>
             <ul id="nav-mobile" class="right hide-on-small-and-down">
                 <li><a href="{{ path('portada') }}">Oferta del día</a></li>
-                {#<li><a href="{{ path('recientes') }}">Ofertas recientes</a></li>#}
+                <li><a href="{{ path('recientes', {'ciudad': ciudadSeleccionada}) }}">Ofertas recientes</a></li>
                 <li><a href="#">Mis ofertas</a></li>
                 <li>
                     <a class="dropdown-button" href="#!" data-activates="dropdown1">
@@ -33,7 +33,7 @@
                 {% block content %}{% endblock %}
             </div>
             <div class="col s12 m6">
-                {% block login %}{% endblock %}
+                {% block aside %}{% endblock %}
             </div>
         </div>
     </div>
