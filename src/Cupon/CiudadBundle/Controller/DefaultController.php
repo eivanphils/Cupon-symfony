@@ -19,14 +19,16 @@ class DefaultController extends Controller
 //    /**
 //     * @Route("/ciudad/cambiar-a-{ciudad}")
 //     */
-    public function cambiarAction($ciudad){
+    public function cambiarAction($ciudad)
+    {
         return new RedirectResponse($this->generateUrl('portada',
             array(
                 'ciudad' => $ciudad)
         ));
     }
 
-    public function listaCiudadesAction(){
+    public function listaCiudadesAction()
+    {
         $em = $this->getDoctrine()->getManager();
         $ciudades = $em->getRepository('CiudadBundle:Ciudad')->findAll();
 
@@ -34,5 +36,28 @@ class DefaultController extends Controller
             array(
                 'ciudades' => $ciudades)
         );
+    }
+
+    /**
+     * @Route("/{ciudad}/recientes", name="recientes")
+     */
+    public function recientesAction($ciudad)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $ciudad = $em->getRepository('CiudadBundle:Ciudad')->findOneBySlug($ciudad);
+
+        $cercanas = $em->getRepository('CiudadBundle:Ciudad')->findCercanas($ciudad->getId());
+
+        $ofertas = $em->getRepository('OfertaBundle:Oferta')->findRecientes($ciudad->getId());
+
+        return $this->render('CiudadBundle:Default:recientes.html.twig',
+            array(
+                'ciudad' => $ciudad,
+                'cercanas' => $cercanas,
+                'ofertas' => $ofertas
+            )
+        );
+
     }
 }
