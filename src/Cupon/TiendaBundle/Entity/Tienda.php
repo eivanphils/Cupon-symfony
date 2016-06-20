@@ -8,7 +8,7 @@ use Cupon\OfertaBundle\Util\Util;
 /**
  * Class Tienda
  * @package Cupon\TiendaBundle\Entity
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Cupon\TiendaBundle\Entity\TiendaRepository")
  */
 class Tienda
 {
