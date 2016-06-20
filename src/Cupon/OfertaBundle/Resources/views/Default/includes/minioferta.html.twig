@@ -4,7 +4,7 @@
             <a href="{{ path('oferta', { 'ciudad': ciudad.slug, 'slug': oferta.slug }) }}">{{ oferta.nombre }}</a>
         </h2>
 
-        {{ oferta.descripcion | mostrar_como_lista }}
+        {{ oferta.descripcion | mostrar_como_lista('ul') }}
 
         <a href="#" class="btn btn-flat">Comprar</a>
     </div>
