@@ -27,6 +27,8 @@
                         <p><strong>Compras:</strong> {{ oferta.compras }}</p>
                     </div>
                 </li>
+            {% else %}
+                <p>Esta tienda no ha pubblicado ofertas</p>
             {% endfor %}
         </ul>
     </section>

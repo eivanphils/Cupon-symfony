@@ -1,3 +1,5 @@
+{% set expirada=oferta.fechaExpiracion|date('YmdHis') < 'now'|date('YmdsHis') %}
+
 <section class="descripcion">
     <h1>
         <a href="{{ path('oferta', { 'ciudad': oferta.ciudad.slug, 'slug': oferta.slug }) }}">{{ oferta.nombre }}</a>
@@ -5,38 +7,49 @@
 
     {{ oferta.descripcion | mostrar_como_lista('ul') }}
 
-    <a class="boton" href="#">Comprar</a>
+    {#muestra boton de comprar si la oferta no expiro#}
+    {% if not expirada %}
+        <a class="boton" href="#">Comprar</a>
+    {% endif %}
 </section>
 
 <section class="galeria">
-    <img class="materialboxed" alt="Fotografía de la oferta" src="{{ asset('uploads/images/'~oferta.foto) }}">
+    <img class="materialboxed" alt="Fotografía de la oferta" src="{{ asset(dir_img~oferta.foto) }}">
     <p class="precio">{{ oferta.precio }} &euro;
         <span>{{ descuento(oferta.precio, oferta.descuento) }}</span></p>
     <p><strong>Condiciones:</strong>{{ oferta.condiciones }}</p>
 </section>
 <section class="estado">
-    <div id="tiempo">
-        {#{{ dump(oferta.fechaExpiracion) }}#}
-        <strong>Faltan</strong>: {{ oferta.fechaExpiracion | date("m/d/Y") }}
-    </div>
-    <div class="compras">
-        <strong>Compras</strong>: {{ oferta.compras }}
-    </div>
-    <div class="faltan">
-        {% set faltan = oferta.umbral - oferta.compras %}
-        {% if faltan >0 %}
-            Faltan <strong>{{ faltan }} compras</strong> <br/>
-            para activar la oferta
-        {% else %}
-            <strong>Oferta activada</strong> por superar las
-            <strong>{{ oferta.umbral }}</strong> compras necesarias
-        {% endif %}
-    </div>
+
+    {% if not expirada %}
+        <div id="tiempo">
+            {#{{ dump(oferta.fechaExpiracion) }}#}
+            <strong>Faltan</strong>: {{ oferta.fechaExpiracion | date("m/d/Y") }}
+        </div>
+        <div class="compras">
+            <strong>Compras</strong>: {{ oferta.compras }}
+        </div>
+
+        <div class="faltan">
+            {% set faltan = oferta.umbral - oferta.compras %}
+            {% if faltan >0 %}
+                Faltan <strong>{{ faltan }} compras</strong> <br/>
+                para activar la oferta
+            {% else %}
+                <strong>Oferta activada</strong> por superar las
+                <strong>{{ oferta.umbral }}</strong> compras necesarias
+            {% endif %}
+        </div>
+    {% else %}
+        <div class="tiempo">
+            <strong>Finalizada </strong>{{ oferta.fechaExpiracion |date() }}
+        </div>
+    {% endif %}
 </section>
 <section class="direccion">
     <h2>Disfruta de la oferta en</h2>
     <p>
-        <a href="#">{{ oferta.tienda.nombre }}</a>
+        <a href="{{ path('tienda_portada',{ 'ciudad':oferta.ciudad.slug, 'tienda':oferta.tienda.slug  }) }}">{{ oferta.tienda.nombre }}</a>
         {{ oferta.tienda.direccion | nl2br }}
     </p>
 </section>

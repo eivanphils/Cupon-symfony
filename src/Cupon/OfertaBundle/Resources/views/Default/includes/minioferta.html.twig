@@ -1,3 +1,5 @@
+{% set expirada=oferta.fechaExpiracion|date('YmdHis') < 'now'|date('YmdsHis') %}
+
 <section class="oferta mini">
     <div class="descripcion">
         <h2>
@@ -6,11 +8,13 @@
 
         {{ oferta.descripcion | mostrar_como_lista('ul') }}
 
-        <a href="#" class="btn btn-flat">Comprar</a>
+        {% if not expirada %}
+            <a href="#" class="btn btn-flat">Comprar</a>
+        {% endif %}
     </div>
     
     <div class="galeria">
-        <img class="materialboxed" src="{{ asset('uploads/images/'~oferta.foto) }}" alt="">
+        <img class="materialboxed" src="{{ asset(dir_img~oferta.foto) }}" alt="">
 
         <p class="precio">{{ oferta.precio }} &euro; <span>{{ descuento(oferta.precio, oferta.descuento) }}</span></p>
 

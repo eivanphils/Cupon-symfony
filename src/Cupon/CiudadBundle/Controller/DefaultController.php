@@ -51,6 +51,10 @@ class DefaultController extends Controller
 
         $ofertas = $em->getRepository('OfertaBundle:Oferta')->findRecientes($ciudad->getId());
 
+        if (!$ciudad) {
+            throw $this->createNotFoundException('No existe la ciudad');
+        }
+        
         return $this->render('CiudadBundle:Default:recientes.html.twig',
             array(
                 'ciudad' => $ciudad,

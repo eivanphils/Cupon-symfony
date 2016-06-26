@@ -51,6 +51,12 @@ class DefaultController extends Controller
 
         $relacionadas = $em->getRepository('OfertaBundle:Oferta')->findRelacionadas($ciudad);
 
+        if (!$oferta)
+        {
+            throw $this->createNotFoundException('No se ha encontrado la oferta');
+
+        }
+
         return $this->render('OfertaBundle:Default:detalle.html.twig',
             array(
                 'oferta' => $oferta,
