@@ -1,0 +1,59 @@
+{% extends('frontend.html.twig') %}
+
+{% block title %}Tienda {{ tienda.nombre }}{% endblock %}
+{% block id 'tienda' %}
+
+{% block content %}
+    <section id="descripcion">
+        <h1>{{ tienda.nombre }}</h1>
+        <p>{{ tienda.descripcion }}</p>
+    </section>
+
+    <section id="ultimas">
+        <h2>Ultimas ofertas</h2>
+
+        <ul class="collapsible" data-collapsible="expandable">
+            {% for oferta in ofertas %}
+                <li>
+                    <div class="collapsible-header">
+                        <i class="material-icons">add</i>{{ oferta.nombre }}
+                    </div>
+                    <div class="collapsible-body">
+                        <p><strong>Fecha:</strong> {{ oferta.fechaPublicacion | date() }}</p>
+                        <p><strong>Descripcion:</strong> {{ oferta.descripcion | truncate(20, true, '...') }}</p>
+                        <a href="{{ path('oferta',{ 'ciudad':oferta.ciudad.slug, 'slug':oferta.slug }) }}">{{ oferta.nombre }}</a>
+                        <p><strong>Precio:</strong> {{ oferta.precio }} &euro;</p>
+                        <p><strong>Descuento:</strong> {{ oferta.descuento }} &euro;</p>
+                        <p><strong>Compras:</strong> {{ oferta.compras }}</p>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+{% endblock %}
+
+{% block aside %}
+
+    <div id="aside">
+        <h3>Otras tiendas en {{ tienda.ciudad.nombre }}</h3>
+        <div class="divider"></div>
+        {% for tienda in cercanas %}
+            <div class="card">
+                <span class="card-title">{{ tienda.nombre }}</span>
+                <div class="card-content">
+                    <p>{{ tienda.descripcion | truncate(20, true, '...') }}</p>
+                </div>
+                <div class="card-action">
+                    <a href="{{ path('tienda_portada',{ 'ciudad': tienda.ciudad.slug, 'tienda': tienda.slug}) }}">Ver mas</a>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{#{% block javascripts %}#}
+    {#<script type="text/javascript">#}
+        {#$('#aside').pushpin({top:10, bottom: 100});#}
+{#//    </script>#}
+{#{% endblock %}#}

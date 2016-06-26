@@ -16,7 +16,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/{ciudad}/tiendas/{tienda}")
+     * @Route("/{ciudad}/tiendas/{tienda}", name="tienda_portada")
      */
     public function portadaAction($ciudad,$tienda)
     {
@@ -42,7 +42,7 @@ class DefaultController extends Controller
         );
 
         return $this->render('TiendaBundle:Default:portada.html.twig', array(
-            'tiendas' => $tienda,
+            'tienda' => $tienda,
             'ofertas' => $ofertas,
             'cercanas' => $cercanas
         ));

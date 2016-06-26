@@ -10,7 +10,7 @@
     </div>
     
     <div class="galeria">
-        <img src="{{ asset('uploads/images/'~oferta.foto) }}" alt="">
+        <img class="materialboxed" src="{{ asset('uploads/images/'~oferta.foto) }}" alt="">
 
         <p class="precio">{{ oferta.precio }} &euro; <span>{{ descuento(oferta.precio, oferta.descuento) }}</span></p>
 
