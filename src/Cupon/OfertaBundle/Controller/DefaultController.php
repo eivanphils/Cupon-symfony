@@ -63,4 +63,16 @@ class DefaultController extends Controller
                 'relacionadas' => $relacionadas
             ));
     }
+
+    /**
+     * @Route("/pdf/{name}", name="pdf_generate")
+     */
+    public function pdfGenerateAction($name)
+    {
+        $pdfGenerator = $this->get('siphoc.pdf.generator');
+        $pdfGenerator->setName('my_pdf.pdf');
+        return $pdfGenerator->displayForView('OfertaBundle:default:pdf-demo.html.twig', array(
+            'name' => $name,
+        ));
+    }
 }
