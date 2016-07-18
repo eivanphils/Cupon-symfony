@@ -14,9 +14,18 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        // replace this example code with whatever you need
+        // multiple entities managers
+        $emDefault = $this->get('doctrine')->getManager();
+
+        $emCustomer = $this->get('doctrine')->getManager('customer');
+
+        $ofertas = $emDefault->getRepository('OfertaBundle:Oferta')->findAll();
+
+        $customers = $emCustomer->getRepository('AppBundle:Customer')->findAll();
+
         return $this->render('default/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..'),
+            'ofertas' => $ofertas,
+            'customers' => $customers
         ]);
     }
 
